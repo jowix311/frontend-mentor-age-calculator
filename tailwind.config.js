@@ -17,7 +17,11 @@ export default {
       },
       fontFamily: {
         poppins: ['Poppins', 'arial', 'sans-serif']
-      }
+      },
+       borderRadius: {
+          xl: '1.5rem',
+          xxl: '4.5rem'
+       }
     },
   },
   plugins: [],
