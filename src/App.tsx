@@ -10,27 +10,42 @@ function App() {
         "
       >
         <div className="flex gap-2  mb-6">
-          <InputField label="Day" id="day" type="text" name="day" value="24" />
+          <InputField
+            label="Day"
+            id="day"
+            type="text"
+            name="day"
+            value=""
+            placeholder="DD"
+            maxLength={2}
+          />
           <InputField
             label="Month"
             id="day"
             type="text"
             name="day"
-            value="09"
+            value=""
+            placeholder="MM"
+            maxLength={2}
           />
           <InputField
             label="Year"
             id="day"
             type="text"
             name="day"
-            value="1984"
+            value=""
+            placeholder="YYYY"
+            maxLength={4}
           />
         </div>
 
         <div className="relative flex justify-center items-center  mb-6">
-          <div className="relative z-10 bg-purple w-16 h-16 rounded-full flex justify-center items-center">
+          <div
+            role="button"
+            className="relative cursor-pointer z-10 bg-purple hover:bg-black w-16 h-16 rounded-full flex justify-center items-center"
+          >
             <img
-              className="w-auto h-8"
+              className="w-auto h-8 "
               alt="age caluclator divider image"
               src="../src/assets/icon-arrow.svg"
             />

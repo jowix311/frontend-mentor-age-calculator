@@ -3,7 +3,9 @@ interface InputFieldProps {
   id: string;
   type: string;
   name: string;
+  placeholder: string;
   value: string;
+  maxLength?: number;
   onChange?: () => void;
 }
 
@@ -18,7 +20,7 @@ const InputField = ({ label, ...otherProps }: InputFieldProps) => {
       </label>
       <input
         {...otherProps}
-        className="h-12 border-solid border border-lightGray rounded-lg pl-3 font-poppins text-offBlack w-full"
+        className="h-12 border-solid border border-lightGray rounded-lg pl-3 font-poppins text-offBlack focus:outline-none focus:border-purple active:border-purple hover:border-purple w-full caret-purple"
       />
     </div>
   );
