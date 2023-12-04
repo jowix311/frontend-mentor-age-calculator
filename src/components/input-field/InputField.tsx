@@ -26,7 +26,7 @@ const InputField = ({
     <div>
       <label
         htmlFor={otherProps.id}
-        className={`block font-poppins uppercase text-smokeyGray text-xs mb-2 tracking-wider ${
+        className={`mb-2 block font-poppins text-xs uppercase tracking-wider text-smokeyGray ${
           errors![targetKey] && "text-lightRed"
         }`}
       >
@@ -35,16 +35,16 @@ const InputField = ({
       <input
         {...register}
         {...otherProps}
-        className={`h-12 border-solid border border-lightGray
-        rounded-lg pl-3 font-poppins text-offBlack
-        focus:outline-none focus:border-purple active:border-purple
-        hover:border-purple w-full caret-purple invalid ${
+        className={` h-12 w-full rounded-lg
+        border border-solid border-lightGray pl-3
+        font-poppins text-offBlack caret-purple
+        hover:border-purple focus:border-purple focus:outline-none active:border-purple ${
           errors![targetKey] &&
-          "border-lightRed focus:border-lightRed active:border-lightRed hover:border-lightRed caret-lightRed"
+          "border-lightRed  caret-lightRed hover:border-lightRed focus:border-lightRed active:border-lightRed"
         }`}
       />
       {errors!.day && (
-        <span className="text-lightRed text-xs font-poppins italic">
+        <span className="font-poppins text-xs italic text-lightRed">
           {errors![targetKey]!.message}
         </span>
       )}
