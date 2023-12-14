@@ -1,12 +1,12 @@
 interface DateDetailProp {
-  day: number;
+  breakdown: number | null;
   label: string;
 }
 
-const DateDetail = ({ day, label }: DateDetailProp) => {
+const DateDetail = ({ breakdown, label }: DateDetailProp) => {
   return (
-    <p className="font-poppins font-bold italic text-5xl">
-      <span className="text-purple">{day}</span> {label}
+    <p className="font-poppins text-5xl font-bold italic">
+      <span className="text-purple">{breakdown || "--"}</span> {label}
     </p>
   );
 };

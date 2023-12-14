@@ -2,11 +2,25 @@ import "./App.css";
 import InputField from "./components/input-field/InputField.tsx";
 import DateDetail from "./components/date-detail/DateDetail.tsx";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { parse, isValid, isBefore, intervalToDuration } from "date-fns";
+import { useState } from "react";
 
 export type Inputs = {
   day: string;
-  month?: string;
-  year?: string;
+  month: string;
+  year: string;
+};
+
+type ageBreakdown = {
+  days: number | null;
+  months: number | null;
+  years: number | null;
+};
+
+const DEFAULT_AGE_BREAKDOWN = {
+  days: null,
+  months: null,
+  years: null,
 };
 
 function App() {
@@ -14,9 +28,37 @@ function App() {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<Inputs>();
+  const [isDateFuture, setIsDateFuture] = useState(false);
+  const [ageBreakdown, setAgeBreakdown] = useState<ageBreakdown>(
+    DEFAULT_AGE_BREAKDOWN,
+  );
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const { day, month, year } = data;
+    const inputDate = new Date(`${year}-${month}-${day}`);
+    const currentDate = new Date();
+    const isDateFuture = !isBefore(inputDate, currentDate);
+
+    setIsDateFuture(isDateFuture);
+
+    if (!isDateFuture) {
+      const {
+        years: breakdownYears,
+        months: breakdownMonths,
+        days: breakdownDays,
+      } = intervalToDuration({ start: currentDate, end: inputDate });
+
+      setAgeBreakdown({
+        days: breakdownDays || null,
+        months: breakdownMonths || null,
+        years: breakdownYears || null,
+      });
+    } else {
+      setAgeBreakdown(DEFAULT_AGE_BREAKDOWN);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-offWhite pt-32">
@@ -40,9 +82,29 @@ function App() {
                     value: true,
                     message: "This field is required",
                   },
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: "Please enter a number",
+                  validate: (value: string) => {
+                    const day = Number(value);
+                    const month = Number(getValues("month"));
+                    const year = Number(getValues("year"));
+
+                    if (isNaN(day)) {
+                      return "Invalid day";
+                    }
+
+                    //check if day is valid on given date (handles leap year or exceeding day in a month)
+                    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+                      const parsedDate = parse(
+                        `${day}/${month}/${year}`,
+                        "dd/MM/yyyy",
+                        new Date(),
+                      );
+
+                      if (!isValid(parsedDate)) {
+                        return "Invalid day";
+                      }
+                    }
+
+                    return true;
                   },
                 }),
               }}
@@ -54,16 +116,21 @@ function App() {
               type="text"
               name="month"
               placeholder="MM"
-              maxLength={4}
+              maxLength={2}
               register={{
                 ...register("month", {
                   required: {
                     value: true,
                     message: "This field is required",
                   },
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: "Please enter a number",
+                  validate: (value: string) => {
+                    const month = Number(value);
+
+                    if (isNaN(month) || month <= 0 || month > 12) {
+                      return "Invalid month";
+                    }
+
+                    return true;
                   },
                 }),
               }}
@@ -82,9 +149,19 @@ function App() {
                     value: true,
                     message: "This field is required",
                   },
-                  pattern: {
-                    value: /^[0-9]+$/,
-                    message: "Please enter a number",
+                  validate: (value: string) => {
+                    const year = Number(value);
+                    const yearPattern = /^[1-9]\d{3}$/; //must be 4 digits and must not start with 0
+
+                    if (isNaN(year) || !yearPattern.test(year.toString())) {
+                      return "Invalid year";
+                    }
+
+                    if (year > new Date().getFullYear()) {
+                      return "Year must not be in the future";
+                    }
+
+                    return true;
                   },
                 }),
               }}
@@ -105,10 +182,17 @@ function App() {
             <div className="absolute left-0 right-0 border-b-2 border-solid border-lightGray"></div>
           </div>
         </form>
+
+        {isDateFuture && (
+          <p className="mb-6 font-poppins text-xs italic text-lightRed">
+            Invalid Date! It is set on the future!
+          </p>
+        )}
+
         <div className="direction flex flex-col gap-2">
-          <DateDetail day={38} label="years" />
-          <DateDetail day={3} label="months" />
-          <DateDetail day={26} label="days" />
+          <DateDetail breakdown={ageBreakdown.years} label="years" />
+          <DateDetail breakdown={ageBreakdown.months} label="months" />
+          <DateDetail breakdown={ageBreakdown.days} label="days" />
         </div>
       </div>
     </div>

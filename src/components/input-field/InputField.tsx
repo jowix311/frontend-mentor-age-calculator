@@ -27,10 +27,6 @@ const InputField = ({
 }: InputFieldProps) => {
   const targetKey = otherProps.id as keyof FieldErrors<Inputs>; //created this variable address TS error
 
-  console.log("targetKey", targetKey);
-  console.log("targetKey value", errors![targetKey]);
-  console.log("!!!");
-
   return (
     <div className="basis-full">
       <label
