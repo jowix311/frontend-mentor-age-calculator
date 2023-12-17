@@ -68,7 +68,7 @@ function App() {
         "
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
-          <div className="a mb-6 flex basis-[90px] flex-row gap-2 align-top md:w-[380px] ">
+          <div className="a mb-6 flex basis-[90px] flex-row gap-2 align-top lg:w-[380px] ">
             <InputField
               label="Day"
               errors={errors}
@@ -169,7 +169,7 @@ function App() {
             />
           </div>
 
-          <div className="relative mb-6 flex items-center  justify-center md:justify-end ">
+          <div className="relative mb-6 flex items-center  justify-center lg:justify-end ">
             <button
               role="button"
               className="relative z-10 flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-purple hover:bg-black"
