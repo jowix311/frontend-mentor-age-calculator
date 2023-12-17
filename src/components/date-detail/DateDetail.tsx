@@ -7,7 +7,7 @@ interface DateDetailProp {
 
 const DateDetail = ({ breakdown, label }: DateDetailProp) => {
   return (
-    <p className="font-poppins text-5xl font-bold italic">
+    <p className="font-poppins text-5xl font-bold italic md:text-7xl">
       <span className="text-purple">
         {breakdown === null ? "--" : <Counter maxCount={breakdown} />}
       </span>{" "}

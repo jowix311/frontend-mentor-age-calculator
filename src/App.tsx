@@ -49,7 +49,7 @@ function App() {
         months: breakdownMonths,
         days: breakdownDays,
       } = intervalToDuration({ start: currentDate, end: inputDate });
-      console.log("breakdownMonths", breakdownMonths);
+
       setAgeBreakdown({
         days: breakdownDays || 0,
         months: breakdownMonths || 0,
@@ -63,11 +63,11 @@ function App() {
   return (
     <div className="min-h-screen bg-offWhite pt-32">
       <div
-        className="m-auto w-[325px] rounded-xl rounded-br-xxl bg-white pb-10 pl-5 pr-5 pt-8
+        className="m-auto w-[325px] rounded-xl rounded-br-xxl bg-white pb-10 pl-5 pr-5 pt-8 lg:w-[580px]
         "
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate={true}>
-          <div className="a mb-6 flex basis-[90px] flex-row gap-2 align-top ">
+          <div className="a mb-6 flex basis-[90px] flex-row gap-2 align-top md:w-[380px] ">
             <InputField
               label="Day"
               errors={errors}
@@ -168,7 +168,7 @@ function App() {
             />
           </div>
 
-          <div className="relative mb-6 flex items-center  justify-center">
+          <div className="relative mb-6 flex items-center  justify-center md:justify-end ">
             <button
               role="button"
               className="relative z-10 flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-purple hover:bg-black"
