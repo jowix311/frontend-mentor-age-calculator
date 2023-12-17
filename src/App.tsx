@@ -49,11 +49,11 @@ function App() {
         months: breakdownMonths,
         days: breakdownDays,
       } = intervalToDuration({ start: currentDate, end: inputDate });
-
+      console.log("breakdownMonths", breakdownMonths);
       setAgeBreakdown({
-        days: breakdownDays || null,
-        months: breakdownMonths || null,
-        years: breakdownYears || null,
+        days: breakdownDays || 0,
+        months: breakdownMonths || 0,
+        years: breakdownYears || 0,
       });
     } else {
       setAgeBreakdown(DEFAULT_AGE_BREAKDOWN);
@@ -87,7 +87,7 @@ function App() {
                     const month = Number(getValues("month"));
                     const year = Number(getValues("year"));
 
-                    if (isNaN(day)) {
+                    if (isNaN(day) || day < 0 || day > 31) {
                       return "Invalid day";
                     }
 
