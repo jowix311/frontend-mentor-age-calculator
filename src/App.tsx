@@ -4,6 +4,7 @@ import DateDetail from "./components/date-detail/DateDetail.tsx";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { parse, isValid, isBefore, intervalToDuration } from "date-fns";
 import { useState } from "react";
+import iconArrow from "./assets/icon-arrow.svg";
 
 export type Inputs = {
   day: string;
@@ -176,7 +177,7 @@ function App() {
               <img
                 className="h-8 w-auto "
                 alt="age caluclator divider image"
-                src="../src/assets/icon-arrow.svg"
+                src={iconArrow}
               />
             </button>
             <div className="absolute left-0 right-0 border-b-2 border-solid border-lightGray"></div>
