@@ -49,7 +49,14 @@ function App() {
         years: breakdownYears,
         months: breakdownMonths,
         days: breakdownDays,
-      } = intervalToDuration({ start: currentDate, end: inputDate });
+      } = intervalToDuration({
+        start: new Date(Number(year), Number(month) - 1, Number(day)),
+        end: new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate(),
+        ),
+      });
 
       setAgeBreakdown({
         days: breakdownDays || 0,
