@@ -70,7 +70,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-offWhite pt-32">
-      <div
+      <section
         className="m-auto w-[325px] rounded-xl rounded-br-xxl bg-white pb-10 pl-5 pr-5 pt-8 lg:w-[580px]
         "
       >
@@ -197,12 +197,12 @@ function App() {
           </p>
         )}
 
-        <div className="direction flex flex-col gap-2">
+        <section className="direction flex flex-col gap-2">
           <DateDetail breakdown={ageBreakdown.years} label="years" />
           <DateDetail breakdown={ageBreakdown.months} label="months" />
           <DateDetail breakdown={ageBreakdown.days} label="days" />
-        </div>
-      </div>
+        </section>
+      </section>
     </div>
   );
 }
